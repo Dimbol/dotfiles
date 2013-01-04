@@ -119,8 +119,6 @@ zstyle ':completion:(match-word|most-recent-file):*' match-original both
 zstyle ':completion:*' matcher-list '' 'm:{a-z}={A-Z}'
 zstyle ':completion:*' completer _expand _complete _ignored #_approximate
 #zstyle ':completion:*' max-errors 1
-#zstyle ':completion:*:complete:snes9x:*' file-patterns '/homse/shared/games/snes/*.smc:roms' '%p:all-files'
-# snes9x requires OSS emulation. use modprobe snd-pcm-oss snd-seq-oss
 
 # keybindings (Emacs mode)
 bindkey -e
