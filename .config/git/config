@@ -3,3 +3,5 @@
 	email = jack.pew@gmail.com
 [color]
 	ui = true
+[credential]
+	helper = cache
