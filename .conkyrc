@@ -78,14 +78,14 @@ top_name_width 15
 TEXT
 $color1$alignc$nodename - $sysname $kernel
 ${font :size=18}$alignc${tztime America/Halifax %F %A %R}$font${if_existing /dev/shm/weather}
-$alignr${texeci 120 cat /dev/shm/weather}$endif
+$alignr${head /dev/shm/weather 1 30}$endif
 $hr$color
 Uptime: $color1$alignr$uptime$color
 RAM: $color1$alignr$mem/$memmax$color ${membar 4,180}
-Networking: ${if_existing /dev/shm/ip}$alignr${texeci 120 cat /dev/shm/ip}$endif
+Networking: ${if_existing /dev/shm/ip}$alignr${head /dev/shm/ip 1 30}$endif
  $color1↑$alignr${upspeedf eth0}${color}K ${upspeedgraph eth0 14,260 60}
- $color1↓$alignr${downspeedf eth0}${color}K ${downspeedgraph eth0 14,260 550}
-$hr
+ $color1↓$alignr${downspeedf eth0}${color}K ${downspeedgraph eth0 14,260 550}${font :size=10}
+$hr$font
 CPUs: ${font :size=10}$alignc               \
  ${color #AAAAAA}${loadavg 1}  ${color #CCCCCC}${loadavg 2}  ${color #FFFFFF}${loadavg 3}$color
   ${hwmon temp 2}°C$alignr$color1${cpu cpu1}%$color ${cpugraph cpu1 14,260}

@@ -56,6 +56,7 @@ set cursorline
 set cursorcolumn
 set foldmethod=marker
 set mouse=a
+set hlsearch
 
 " vim-latexsuite settings
 set grepprg=grep\ -nH\ $*
@@ -65,6 +66,7 @@ let g:Tex_ViewRule_pdf = "xdg-open &>/dev/null"
 let g:Tex_UseMakefile = 0
 let g:Tex_DefaultTargetFormat = "pdf"
 "let g:Tex_CompileRule_dvi = "latex -src-specials -interaction=nonstopmode $*"
+let g:Tex_MultipleCompileFormats = "dvi,pdf"
 
 " F2 toggles paste mode.
 set pastetoggle=<F2>
@@ -104,13 +106,14 @@ function! <SID>SynStack()
 endfunction
 
 if has("autocmd")
-  autocmd BufWritePre *.f,*.c,*.cpp,*.py :call <SID>StripTrailingWhitespaces()
+  autocmd BufWritePre *.f,*.f90,*.f95,*.c,*.cpp,*.py :call <SID>StripTrailingWhitespaces()
   autocmd FileType zsh setlocal ts=2 sw=2 expandtab si
   autocmd FileType python set ts=2 sw=2 expandtab nosi
     \ cinwords=if,elif,else,for,while,try,except,finally,def,class,with
-  autocmd FileType fortran setlocal ts=3 sw=3 expandtab si
+  autocmd FileType fortran setlocal ts=4 sw=4 expandtab si
+  autocmd FileType c setlocal ts=2 sw=2 expandtab si
   autocmd FileType tex setlocal ts=2 sw=2 expandtab si iskeyword+=:
-  autocmd BufWritePost .vimrc :source $MYVIMRC
+  autocmd BufNewFile,BufRead *.f90 let fortran_free_source=1 | let fortran_dialect="f90"
   autocmd BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal g'\"" | endif
 endif
 

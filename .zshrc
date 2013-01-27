@@ -25,7 +25,7 @@ umask 0022
 # use pythonrc for tab completion in interactive mode
 export PYTHONSTARTUP=~/.config/pythonrc
 export EDITOR=$(which vim)
-export BROWSER=$(which firefox)
+export BROWSER=$(which chromium)
 export MANWIDTH=${MANWIDTH:-80}
 # use the good monitor for fullscreen
 #export SDL_VIDEO_FULLSCREEN_DISPLAY=0
