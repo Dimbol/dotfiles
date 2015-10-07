@@ -9,6 +9,7 @@ branches (e.g., a branch for FreeBSD and a branch for Arch Linux).
 
 GNU Stow is appropriate for creating symlinks to dotfiles within this
 repository.  The packages stowed are:
+
 * gui (containing i3 and X configs, with .Xresources color schemes coming
   from bbs.archlinux.org),
 * vim (containing .vimrc and a submodule for the colorscheme kolor), and
