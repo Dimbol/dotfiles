@@ -1,0 +1,6 @@
+[submodule "vim/.vim/vim-kolor"]
+	path = vim/.vim/vim-kolor
+	url = https://github.com/zeis/vim-kolor
+[submodule "cli/.zsh/zsh-syntax-highlighting"]
+	path = cli/.zsh/zsh-syntax-highlighting
+	url = https://github.com/zsh-users/zsh-syntax-highlighting

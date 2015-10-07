@@ -1,0 +1,6 @@
+# list episode 1 for each podcast in gPodder
+emulate -L zsh
+
+for line in ${(f)"$(gpo list)"}; do
+    [[ $line != \#* ]] && gpo info $line | grep '^ \+1\.'
+done

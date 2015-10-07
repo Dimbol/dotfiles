@@ -1,5 +1,0 @@
-set default-bg "#888888"
-set zoom-step 30
-set window-width 1280
-set window-height 1024
-map F toggle_fullscreen

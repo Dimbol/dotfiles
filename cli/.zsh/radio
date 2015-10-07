@@ -1,0 +1,74 @@
+# play CBC radio streams with MPlayer
+# streams taken from http://misener.org/full-list-of-cbc-music-direct-urls
+# TODO: set up completion widgets for this
+# TODO: react to ICY Info: StreamTitle='';, which indicates a commercial
+# ideas for that:
+#   make a python3 script
+#   subprocess to start mplayer and communicate i/o
+#   curses for keyboard events
+#   have modes, advert and music
+#   react by toggling mute
+#   wait 2s after leaving advert mode to unpause
+
+emulate -L zsh
+setopt extendedglob
+
+typeset -A stations
+stations=(
+    radio1Hfx CBC_R1_HFX_H
+    special CBC_SPCIAL_H
+    radio3 CBC_R3_WEB
+    radio2Classic CBC_R2_CLAS_H
+    essntlClassics CBC_ECLASS_H
+    operatic CBC_OPERAT_H
+    baroque CBC_BAROQU_H
+    modernMasters CBC_MODMAS_H
+    orchestral CBC_ORCHES_H
+    piano CBC_PIANO1_H
+    chamber CBC_GGSAMP_H
+    cbcRecords CBC_CBCREC_H
+    canComposers CBC_CANCOM_H
+    jazz CBC_R2JAZZ_H
+    jazzMasters CBC_JAZMAS_H
+    jazzSBook CBC_JAZSON_H
+    jazzCan CBC_JAZCDN_H
+    jazzSmooth CBC_JAZSMO_H
+    singsongCan CBC_CANSON_H
+    singsong CBC_SINSON_H
+    world CBC_WORLDM_H
+    rockIndie CBC_INDIE1_H
+    rock CBC_ROCK01_H
+    rockClassics CBC_ROCKCL_H
+    rockHard CBC_HAROCK_H
+    pop40 CBC_POP040_H
+    popAdult CBC_ADLTPO_H
+    jukebox CBC_JUKEBO_H
+    70s CBC_70S001_H
+    80s CBC_80S001_H
+    90s CBC_90S001_H
+    adultAlts CBC_ADLTAL_H
+    blues CBC_BLUES1_H
+    bluesClassics CBC_BLCLAS_H
+    rbsoul CBC_RBSOUL_H
+    hiphop CBC_HIPHOP_H
+    aboriginal CBC_ABORIG_H
+    country CBC_CONTRY_H
+    countryAlt CBC_ALTCRY_H
+    countrlClassics CBC_CLSCRY_H
+    electronic CBC_ELECTR_H
+    ambient CBC_AMBIEN_H
+)
+
+usage () {
+    print "usage: $0 [station] [options..]"
+}
+
+case $# in
+    0) stream="$stations[radio1Hfx]" ;;
+    *) stream="$stations[$1]"; [[ -z "$stream" ]] && usage && return 2 ;;
+esac
+
+# pass rest as options to mplayer
+shift
+mplayer $* -vo null -vc null -nolirc -nomouseinput -nojoystick -playlist http://playerservices.streamtheworld.com/pls/${stream}.pls
+return $?

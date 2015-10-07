@@ -1,0 +1,3 @@
+# grep the history
+emulate -L zsh
+    history 0 | grep $1

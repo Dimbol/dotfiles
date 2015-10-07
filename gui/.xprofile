@@ -1,0 +1,12 @@
+#
+# Desktop-agnostic configurations and autostart things
+#
+
+# Tweak key mappings in X, eg, to make capslock into escape
+sleep 5 && [ -f ~/.Xmodmap ] && xmodmap ~/.Xmodmap
+
+# Some programs are configured through X
+[ -f ~/.Xresources ] && xrdb -merge ~/.Xresources
+
+# Fast key repeating is rather nice
+xset r rate 250 50

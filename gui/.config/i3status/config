@@ -4,22 +4,30 @@ general {
 }
 
 order += "volume master"
-order += "run_watch DHCP"
-order += "load"
+order += "run_watch Transmission"
+order += "run_watch MPD"
 order += "time"
 
-ethernet eth0 {
+ethernet enp2s0 {
         # if you use %speed, i3status requires root privileges
         format_up = "E: %ip (%speed)"
         format_down = "E: down"
 }
 
 run_watch DHCP {
-        pidfile = "/run/dhc*.pid"
+        pidfile = "/var/run/dhc*.pid"
+}
+
+run_watch Transmission {
+        pidfile = "/var/run/transmission/daemon.pid"
+}
+
+run_watch MPD {
+        pidfile = "/var/run/.mpd/mpd.pid"
 }
 
 time {
-        format = "%Y-%m-%d %H:%M:%S"
+        format = "%Y-%m-%d (%a) %H:%M:%S"
 }
 
 load {

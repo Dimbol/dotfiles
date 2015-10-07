@@ -1,0 +1,26 @@
+#!/usr/bin/env zsh
+# Startup script executed from ~/.config/i3/config
+
+# Tweak key mappings in X, eg, to make capslock into escape
+[ -f ~/.Xmodmap ] && xmodmap ~/.Xmodmap
+
+# Some programs are configured through X
+[ -f ~/.Xresources ] && xrdb -merge ~/.Xresources
+
+# DPMS can be annoying when listening to the radio.
+xset s -dpms
+
+# Fast key repeating is rather nice.
+xset r rate 250 50
+
+# Start the urxvt demon
+pgrep urxvtd &>/dev/null || urxvtd -q -f -o
+
+# Enable zapping (C-A-<Bksp> kills X)
+setxkbmap -option terminate:ctrl_alt_bksp
+
+# Set a background.
+[ -f ~/.fehbg ] && . ~/.fehbg
+
+## Start a compositor.
+##compton -b --backend glx --paint-on-overlay --vsync opengl-swc -f -D 5 -I 0.056 -O 0.06

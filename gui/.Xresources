@@ -1,0 +1,91 @@
+! ~/.Xresources
+!
+! This file contains settings for programs which take their configuration
+! via Xorg. Update changes to the running X server with
+! $ xrdb -merge ~/.Xresources
+
+! the shift+ctrl keybinding is annoying
+URxvt.iso14755: false
+
+! buffer scrolling settings
+URxvt.scrollTtyOutput:   false
+URxvt.scrollWithBuffer:  true
+URxvt.scrollTtyKeypress: true
+
+! window styling
+!URxvt.scrollstyle:      plain
+!URxvt.scrollBar_right:  true
+!URxvt.secondaryScroll:  false
+!URxvt.fading:           40
+URxvt.scrollBar_right:  false
+URxvt.scrollBar:        false
+URxvt.borderLess:       false
+URxvt.transparent:      0
+URxvt.letterSpace:      -2
+URxvt.lineSpace:        1
+URxvt.internalBorder:   4
+URxvt.geometry:         96x28
+URxvt.buffered:         true
+URxvt.saveLines:        4096
+URxvt.inheritPixmap:    false
+URxvt.tintColor:        #080808
+URxvt.shading:          0
+
+! colors
+!URxvt.background:       #000010
+!URxvt.foreground:       #e0e0e0
+!URxvt.colorBD:          #ffffff
+!URxvt.cursorColor:      #e0e080
+URxvt.cursorColor:      #5e468c
+URxvt.cursorBlink:      false
+URxvt.throughColor:     #8080f0
+URxvt.highlightColor:   #505050
+!URxvt.underlineColor:   #ffff00
+
+!URxvt.font:             9x15bold,\
+!                        -misc-fixed-bold-r-normal--15-140-75-75-c-90-iso10646-1,\
+!                        -misc-fixed-medium-r-normal--15-140-75-75-c-90-iso10646-1, \
+!                        [codeset=JISX0208]xft:Kochi Gothic, \
+!                        xft:Bitstream Vera Sans Mono:autohint=true, \
+!                        xft:Code2000:antialias=false
+!URxvt.boldFont:         -xos4-terminus-bold-r-normal--14-140-72-72-c-80-iso8859-15
+!URxvt.italicFont:       xft:Bitstream Vera Sans Mono:italic:autohint=true
+!URxvt.boldItalicFont:   xft:Bitstream Vera Sans Mono:bold:italic:autohint=true
+URxvt.font:              xft:dejavu sans mono:size=14
+URxvt.boldFont:          xft:dejavu sans mono:size=14
+
+URxvt.iconFile: /usr/local/share/icons/gnome/48x48/apps/terminal.png
+
+URxvt.perl-ext-common:      default,matcher,keyboard-select,url-select,clipboard
+URxvt.url-select.launcher:  xdg-open
+URxvt.keysym.M-Escape:      perl:keyboard-select:activate
+URxvt.keysym.M-u:           perl:url-select:select_next
+URxvt.keysym.M-s:           perl:keyboard-select:search
+URxvt.keysym.M-c:           perl:clipboard:copy
+URxvt.keysym.M-v:           perl:clipboard:paste
+URxvt.keysym.M-C-v:         perl:clipboard:paste_escaped
+!URxvt.url-select.underline: true
+URxvt.matcher.rend.0:       -Uline fg16
+URxvt.matcher.button:       1
+
+! Xft settings
+Xft.autohint:   0
+Xft.lcdfilter:  lcddefault
+Xft.hintstyle:  hintfull
+Xft.hinting:    1
+Xft.antialias:  1
+Xft.dpi:        96
+Xft.rgba:       rgb
+
+! -- Colours -- !
+!#include "/usr/home/j/.colours/arthur"
+!#include "/usr/home/j/.colours/bright"
+#include "/usr/home/j/.colours/dark"
+!#include "/usr/home/j/.colours/lich"
+!#include "/usr/home/j/.colours/low"
+!#include "/usr/home/j/.colours/old"
+!#include "/usr/home/j/.colours/rab"
+!#include "/usr/home/j/.colours/reasons"
+!#include "/usr/home/j/.colours/soft"
+!#include "/usr/home/j/.colours/washed"
+!#include "/usr/home/j/.colours/zenburn"

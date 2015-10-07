@@ -2,7 +2,7 @@ version 6.0
 if &cp | set nocp | endif
 let s:cpo_save=&cpo
 set cpo&vim
-nmap gx <Plug>NetrwBrowseX
+nnoremap gx <Plug>NetrwBrowseX
 nnoremap <silent> <Plug>NetrwBrowseX :call netrw#NetrwBrowseX(expand("<cWORD>"),0)
 " Unbind the cursor keys in insert, normal and visual modes.
 let &cpo=s:cpo_save
@@ -10,12 +10,13 @@ unlet s:cpo_save
 
 " colors!
 filetype plugin indent on
-syntax on
-colorscheme kolor
+if has('syntax') && !exists('g:syntax_on')
+  syntax enable
+endif
+colorscheme slate
 
-" put swap files in /tmp
-set directory=/tmp
 set autoindent
+set autoread
 set noautowrite
 set background=dark
 set backspace=indent,eol,start
@@ -35,27 +36,32 @@ set nomodeline
 set noerrorbells
 set printoptions=paper:letter
 set ruler
-set runtimepath=~/.vim,/var/lib/vim/addons,/usr/share/vim/vimfiles,/usr/share/vim/vim73,/usr/share/vim/vimfiles/after,/var/lib/vim/addons/after,~/.vim/after
 set scrolloff=2
+set sidescrolloff=5
 set shellslash
 set shiftwidth=4
+set shiftround
 set showcmd
 set showmatch
 set smartcase
 set smartindent
 set suffixes=.bak,~,.swp,.o,.info,.aux,.log,.dvi,.bbl,.blg,.brf,.cb,.ind,.idx,.ilg,.inx,.out,.toc
-set synmaxcol=2048
+set synmaxcol=256
 set tabstop=4
 set wildmenu
-set nonumber
 set wrap
 set spelllang=en_ca
+set foldmethod=marker
+set hlsearch
+set textwidth=0
 set nolist
 set number
-set cursorline
-set cursorcolumn
-set foldmethod=marker
-set mouse=a
+set ttyfast
+set splitbelow
+set clipboard+=unnamed
+set encoding=utf-8
+
+let vimpager_use_gvim = 1
 
 " vim-latexsuite settings
 set grepprg=grep\ -nH\ $*
@@ -64,7 +70,8 @@ let g:Tex_ViewRule_dvi = "xdg-open &>/dev/null"
 let g:Tex_ViewRule_pdf = "xdg-open &>/dev/null"
 let g:Tex_UseMakefile = 0
 let g:Tex_DefaultTargetFormat = "pdf"
-"let g:Tex_CompileRule_dvi = "latex -src-specials -interaction=nonstopmode $*"
+let g:Tex_CompuleRule_pdf = "pdflatex -interaction=nonstopmode $*"
+let g:Tex_MultipleCompileFormats = "dvi, pdf, aux"
 
 " F2 toggles paste mode.
 set pastetoggle=<F2>
@@ -77,6 +84,14 @@ noremap <F5> :set list! list?<CR>
 
 " Show spelling mistakes with F6.
 noremap <F6> :set spell! spell?<CR>
+
+" Make space more useful.
+nnoremap <Space> L<C-d>
+nnoremap <S-Space> H<C-u>
+nnoremap <C-Space> za
+
+" A faster buffer switch?
+nnoremap ! :<C-u>b<C-r>=v:count<CR><CR>
 
 " Some colors for special characters.
 "highlight NonText cterm=NONE ctermfg=DarkBlue ctermbg=NONE
@@ -95,7 +110,7 @@ function! <SID>StripTrailingWhitespaces()
 endfunction
 
 " Show syntax highlighting groups for word under cursor
-nmap <C-S-P> :call <SID>SynStack()<CR>
+nnoremap <C-S-P> :call <SID>SynStack()<CR>
 function! <SID>SynStack()
   if !exists("*synstack")
     return
@@ -104,13 +119,14 @@ function! <SID>SynStack()
 endfunction
 
 if has("autocmd")
-  autocmd BufWritePre *.f,*.c,*.cpp,*.py :call <SID>StripTrailingWhitespaces()
+  autocmd BufWritePre *.f,*.f90,*.f95,*.f03,*.c,*.cpp,*.py :call <SID>StripTrailingWhitespaces()
   autocmd FileType zsh setlocal ts=2 sw=2 expandtab si
-  autocmd FileType python set ts=2 sw=2 expandtab nosi
+  autocmd FileType python setlocal ts=2 sw=2 expandtab nosi
     \ cinwords=if,elif,else,for,while,try,except,finally,def,class,with
-  autocmd FileType fortran setlocal ts=3 sw=3 expandtab si
+  autocmd FileType fortran setlocal ts=4 sw=4 expandtab nosi
+  autocmd FileType c setlocal ts=2 sw=2 expandtab si
   autocmd FileType tex setlocal ts=2 sw=2 expandtab si iskeyword+=:
-  autocmd BufWritePost .vimrc :source $MYVIMRC
+  autocmd BufNewFile,BufRead *.f90 let fortran_free_source=1 | let fortran_dialect="f90"
   autocmd BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal g'\"" | endif
 endif
 
