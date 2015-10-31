@@ -1,69 +1,66 @@
-version 6.0
-if &cp | set nocp | endif
-let s:cpo_save=&cpo
-set cpo&vim
-nnoremap gx <Plug>NetrwBrowseX
-nnoremap <silent> <Plug>NetrwBrowseX :call netrw#NetrwBrowseX(expand("<cWORD>"),0)
-" Unbind the cursor keys in insert, normal and visual modes.
-let &cpo=s:cpo_save
-unlet s:cpo_save
+" ~/.vimrc
 
-" colors!
-filetype plugin indent on
-if has('syntax') && !exists('g:syntax_on')
-  syntax enable
-endif
+" colors! {{{
+syntax enable
+set background=dark
+"set cursorline
+"set cursorcolumn
 colorscheme slate
 
+" Tweaks for special characters.
+"highlight NonText cterm=NONE ctermfg=DarkBlue ctermbg=NONE
+"highlight LineNr cterm=NONE ctermfg=Red ctermbg=NONE
+" }}}
+
+" non-color options {{{
+filetype plugin indent on
 set autoindent
 set autoread
-set noautowrite
-set background=dark
 set backspace=indent,eol,start
+"set clipboard+=unnamed
+set encoding=utf-8
 set expandtab
-set fileencodings=ucs-bom,utf-8,default,latin1
+set foldmethod=marker
 set formatprg=fmt
 set helplang=en
 set hidden
 set history=50
+set hlsearch
 set ignorecase
 set incsearch
 set lazyredraw
-set matchtime=10
 set matchpairs+=<:>
+set matchtime=10
+set noautowrite
 set nocompatible
-set nomodeline
 set noerrorbells
+set nolist
+set nomodeline
+set number
 set printoptions=paper:letter
 set ruler
 set scrolloff=2
-set sidescrolloff=5
 set shellslash
-set shiftwidth=4
 set shiftround
+set shiftwidth=4
 set showcmd
 set showmatch
+set sidescrolloff=5
 set smartcase
 set smartindent
+set spelllang=en_ca
+set splitbelow
 set suffixes=.bak,~,.swp,.o,.info,.aux,.log,.dvi,.bbl,.blg,.brf,.cb,.ind,.idx,.ilg,.inx,.out,.toc
 set synmaxcol=256
 set tabstop=4
+set textwidth=0
+set ttyfast
 set wildmenu
 set wrap
-set spelllang=en_ca
-set foldmethod=marker
-set hlsearch
-set textwidth=0
-set nolist
-set number
-set ttyfast
-set splitbelow
-set clipboard+=unnamed
-set encoding=utf-8
+"let vimpager_use_gvim = 1
+" }}}
 
-let vimpager_use_gvim = 1
-
-" vim-latexsuite settings
+" vim-latexsuite settings {{{
 set grepprg=grep\ -nH\ $*
 let g:tex_flavor = "latex"
 let g:Tex_ViewRule_dvi = "xdg-open &>/dev/null"
@@ -72,11 +69,13 @@ let g:Tex_UseMakefile = 0
 let g:Tex_DefaultTargetFormat = "pdf"
 let g:Tex_CompuleRule_pdf = "pdflatex -interaction=nonstopmode $*"
 let g:Tex_MultipleCompileFormats = "dvi, pdf, aux"
+" }}}
 
+" nondefault keybindings {{{
 " F2 toggles paste mode.
 set pastetoggle=<F2>
 
-" Press F4 to toggle highlighting on/off, and show current value.
+" Press F4 to toggle highlighting on/off, and shows current value.
 noremap <F4> :set hlsearch! hlsearch?<CR>
 
 " Show nonprinting characters with F5.
@@ -92,11 +91,9 @@ nnoremap <C-Space> za
 
 " A faster buffer switch?
 nnoremap ! :<C-u>b<C-r>=v:count<CR><CR>
+" }}}
 
-" Some colors for special characters.
-"highlight NonText cterm=NONE ctermfg=DarkBlue ctermbg=NONE
-"highlight LineNr cterm=NONE ctermfg=Red ctermbg=NONE
-
+" functions {{{
 function! <SID>StripTrailingWhitespaces()
   " Preparation: save last search, and cursor position.
   let _s=@/
@@ -117,7 +114,9 @@ function! <SID>SynStack()
   endif
   echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
 endfunction
+" }}}
 
+" filetype autocommands {{{
 if has("autocmd")
   autocmd BufWritePre *.f,*.f90,*.f95,*.f03,*.c,*.cpp,*.py :call <SID>StripTrailingWhitespaces()
   autocmd FileType zsh setlocal ts=2 sw=2 expandtab si
@@ -126,8 +125,10 @@ if has("autocmd")
   autocmd FileType fortran setlocal ts=4 sw=4 expandtab nosi
   autocmd FileType c setlocal ts=2 sw=2 expandtab si
   autocmd FileType tex setlocal ts=2 sw=2 expandtab si iskeyword+=:
+  autocmd FileType vim setlocal modeline
   autocmd BufNewFile,BufRead *.f90 let fortran_free_source=1 | let fortran_dialect="f90"
   autocmd BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal g'\"" | endif
 endif
+" }}}
 
-" vim: set ft=vim :
+" vim: set foldmethod=marker foldlevel=1:
