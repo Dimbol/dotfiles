@@ -14,4 +14,5 @@ repository.  The packages stowed are:
   from bbs.archlinux.org),
 * vim (containing .vimrc and a submodule for the colorscheme kolor), and
 * cli (containing .zshrc, a submodule for zsh-syntax-hightlighting,
-  .tmux.conf, .login_conf, &c)
+  .tmux.conf, &c)
+* mutt (containing configuration for the mutt mail user agent)

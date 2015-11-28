@@ -3,12 +3,9 @@
 # It's time to learn tmux!  Launch it immediately if no sessions currently exist.
 # The bulk of this .zshrc is short-circuited while tmux runs.
 if ! pgrep tmux &>/dev/null; then
-  tmux
+  command -v tmux &>/dev/null && tmux
   exit
 fi
-
-# Let's run user processes with more niceness.
-#(( $SHLVL < 3 )) && renice +5 -p $$ &>/dev/null
 
 # Get colors and set up a fancy prompt.
 autoload colors zsh/terminfo
@@ -39,9 +36,6 @@ if pgrep tmux &>/dev/null; then
   unset ntmux
 fi
 
-# Check for system mail.
-from
-
 # default permissions
 umask 0022
 
@@ -51,6 +45,7 @@ export EDITOR="vim"
 #export BROWSER="firefox"
 export MANWIDTH=${MANWIDTH:-80}
 export PAGER="less"
+export LESSHISTFILE="-"
 
 zmodload zsh/mathfunc
 zmodload zsh/complist
@@ -88,12 +83,12 @@ setopt COMPLETE_IN_WORD
 setopt NO_FLOW_CONTROL
 
 # a couple aliases
-alias -g L="| $PAGER"
-alias -g N="&>/dev/null"
+#alias -g L="| $PAGER"
+#alias -g N="&>/dev/null"
 #alias -g E="&|exit"
 
 alias ll="ls -lah"
-alias tailf="tail -f"
+alias tailf="tail -F"
 alias sudo="sudo "
 alias view="vim -R"
 
@@ -128,10 +123,14 @@ zle -N backward-delete-to-char
 # prefix the command with a space to better use setopt HIST_IGNORE_SPACE
 function toggle-prefix-with-space() {
   (( ${#BUFFER} == 0 )) && return
-  if [[ ${LBUFFER[1]} != ' ' ]]; then
+  if [[ ${BUFFER[1]} != ' ' ]]; then
     LBUFFER=" ${LBUFFER}"
   else
-    LBUFFER="${LBUFFER[2,-1]}"
+    if (( ${#LBUFFER} > 0 )); then
+      LBUFFER="${LBUFFER[2,-1]}"
+    else
+      BUFFER="${BUFFER[2,-1]}"
+    fi
   fi
 }
 zle -N toggle-prefix-with-space

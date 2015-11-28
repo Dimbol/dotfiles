@@ -1,0 +1,64 @@
+# ~/.mutt/muttrc
+# User configuration file for Mutt
+# See /usr/local/etc/Muttrc for system defaults.
+
+# mail storage locations
+set folder="~/Mail"
+set record="+Sent"
+set postponed="+Drafts"
+
+# transfer mail in the spoolfile to ~/Mail/Inbox
+set mbox="+Inbox"
+set mbox_type=Maildir
+set move=yes
+
+# these mailboxes can be switched to using 'y'
+mailboxes $MAIL
+mailboxes "+Inbox" "+Sent" "+Drafts"
+
+# frequently check for new messages
+set mail_check=5
+
+# configure the pager for mail viewing
+set pager_index_lines=5
+set pager_context=3
+set pager_stop=yes
+set menu_scroll=yes
+set tilde=yes
+
+# put Mutt dotfiles in ~/.mutt and enable caching
+set header_cache="~/.mutt/cache/headers"
+#set message_cachedir="~/.mutt/cache/bodies"
+set certificate_file="~/.mutt/certificates"
+set mailcap_path="~/.mutt/mailcap"
+set history_file="~/.mutt/history"
+set signature="~/.mutt/signature"
+set alias_file="~/.mutt/aliases"
+
+# use a different date_format in the index listing
+set date_format="%y-%m-%d %T"
+set index_format="%4C | %Z [%d] %-30.30L (%-4.4c) %s"
+
+# alter the default keybindings
+bind index gg first-entry
+bind index G last-entry
+bind index R group-reply
+bind index p recall-message
+bind compose p postpone-message
+bind pager k previous-line
+bind pager j next-line
+bind pager gg top
+bind pager G bottom
+bind pager R group-reply
+bind attach <return> view-mailcap
+
+# set the color scheme
+#source /usr/local/share/examples/mutt/colors.default
+#source /usr/local/share/examples/mutt/colors.linux
+source ~/.mutt/colors.zenburn
+
+# gmail account settings are stored separately
+source ~/.mutt/gmail
+
+# aliases are stored separately
+source ~/.mutt/aliases

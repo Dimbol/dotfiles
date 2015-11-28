@@ -21,7 +21,6 @@ set backspace=indent,eol,start
 set encoding=utf-8
 set expandtab
 set foldmethod=marker
-set formatprg=fmt
 set helplang=en
 set hidden
 set history=50
@@ -48,6 +47,7 @@ set showmatch
 set sidescrolloff=5
 set smartcase
 set smartindent
+set smarttab
 set spelllang=en_ca
 set splitbelow
 set suffixes=.bak,~,.swp,.o,.info,.aux,.log,.dvi,.bbl,.blg,.brf,.cb,.ind,.idx,.ilg,.inx,.out,.toc
@@ -126,7 +126,9 @@ if has("autocmd")
   autocmd FileType c setlocal ts=2 sw=2 expandtab si
   autocmd FileType tex setlocal ts=2 sw=2 expandtab si iskeyword+=:
   autocmd FileType vim setlocal modeline
+  autocmd FileType conf setlocal ts=8
   autocmd BufNewFile,BufRead *.f90 let fortran_free_source=1 | let fortran_dialect="f90"
+  autocmd BufNewFile,BufRead ~/.mutt/* setlocal filetype=muttrc
   autocmd BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal g'\"" | endif
 endif
 " }}}
